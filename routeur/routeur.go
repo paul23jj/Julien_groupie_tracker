@@ -1,22 +1,24 @@
 package routeur
 
 import (
-	"Steam-API/controller"
 	"net/http"
 )
 
-func New() *http.ServeMux {
+func InitRoutes() {
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	mux := http.NewServeMux()
+	tpl := http.FileServer(http.Dir("template"))
+	http.Handle("/template/", http.StripPrefix("/template/", tpl))
 
-	mux.HandleFunc("/", controller.Home)
-	mux.HandleFunc("/aPropos", controller.aPropos)
-	mux.HandleFunc("/categories", controller.categories)
-	mux.HandleFunc("/collection", controller.collection)
-	mux.HandleFunc("/favoris", controller.favoris)
-	mux.HandleFunc("/recherche", controller.recherche)
-	mux.HandleFunc("/resssources", controller.resssources)
-	//normalement ya tt les pages
+	http.HandleFunc("/aPropos", aProposHandler)
+	http.HandleFunc("/categories", categoriesHandler)
+	http.HandleFunc("/collection", collectionHandler)
+	http.HandleFunc("/favoris", favorisHandler)
+	http.HandleFunc("/recherche", rechercheHandler)
+	http.HandleFunc("/ressources", ressourcesHandler)
 
-	return mux
+	http.HandleFunc("/", indexHandler)
 }
+
+//faire les fonction pour les handlers
