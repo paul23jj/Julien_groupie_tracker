@@ -5,15 +5,15 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"time"
+	"os"
 )
 
 func main() {
 	//URL API
 	urlAPI := "https://api.rawg.io/api/"
 
-	//init du client HTTP qui va émettre les reequêtes
+	//init du client HTTP qui va émettre les requêtes
 	httpClient := http.Client{
 		Timeout: time.Second * 2,
 	}
