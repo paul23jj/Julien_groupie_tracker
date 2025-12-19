@@ -1,53 +1,41 @@
 package controller
 
-import (
-	"encoding/json"
-	"fmt"
-	"io"
-	"net/http"
-	"time"
-	"os"
-)
+// PageData représente les données passées aux templates.
+type PageData map[string]interface{}
 
-func main() {
-	//URL API
-	urlAPI := "https://api.rawg.io/api/"
-
-	//init du client HTTP qui va émettre les requêtes
-	httpClient := http.Client{
-		Timeout: time.Second * 2,
+func APropos() PageData {
+	return PageData{
+		"Title":   "À propos",
+		"Content": "Contenu de la page À propos",
 	}
+}
 
-	//Création de la requête HTTP vers l'api avec init de la méthode HTTP, la route et le corps de la requête
-	req, errReq := http.NewRequest(http.MethodGet, urlAPI, nil)
-	if errReq != nil {
-		fmt.Println("une erreur est survenue : ", errReq.Error())
+func Categories() PageData {
+	return PageData{
+		"Title": "Catégories",
 	}
+}
 
-	//Ajout d'une métadonnée dans le header, User_Agent permet d'identifier l'application, système ...
-	req.Header.Add("User-Agent", "Ynov campus cours")
-
-	//execution de la requête HTTP vers l'API
-	res, errResp := httpClient.Do(req)
-	if errResp != nil {
-		fmt.Println("Une erreur est survenue : ", errResp.Error())
-		return
+func Collection() PageData {
+	return PageData{
+		"Title": "Collection",
 	}
-	if res.Body != nil {
-		defer res.Body.Close()
+}
+
+func Favoris() PageData {
+	return PageData{
+		"Title": "Favoris",
 	}
-	//lecture et récup du corps de la requête HTTP
-	body, errBody := io.ReadAll(res.Body)
-	if errBody != nil {
-		fmt.Println("Une erreur est survenue : ", errResp.Error())
+}
+
+func Recherche() PageData {
+	return PageData{
+		"Title": "Recherche",
 	}
+}
 
-	//décla de la variable qui va contenir les données
-	var decodeData ApiData //structure a faire apres l'erreur s'enlevera
-
-	//decodage des données en format JSON et ajout des données à la variable: decodeData
-	json.Unmarshal(body, &decodeData)
-
-	//affichage des données
-	fmt.Println(decodeData.Results[0])
+func Ressources() PageData {
+	return PageData{
+		"Title": "Ressources",
+	}
 }
