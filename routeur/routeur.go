@@ -13,6 +13,7 @@ func New() http.Handler {
 
 	fs := http.FileServer(http.Dir("static"))
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
+	mux.Handle("/icons/", http.StripPrefix("/icons/", http.FileServer(http.Dir("icons"))))
 
 	mux.HandleFunc("/aPropos", aProposHandler)
 	mux.HandleFunc("/categories", categoriesHandler)
