@@ -13,6 +13,7 @@ body {
     background: linear-gradient(135deg, #171A21 0%, #1B2838 100%);
     min-height: 100vh;
     }
+
 .navbar {
   position: fixed;
   top: 0;
@@ -44,9 +45,10 @@ body {
 }
 
 .logo {
-  width: 225px;
+  width: 200px;
   position: relative;
   left: 20px;
+  top: 0px;
   font-weight: 600;
   letter-spacing: 4px;
   font-size: 22px;
@@ -56,4 +58,8 @@ body {
 
 .logo:hover {
   transform: scale(1.05);
+}
+
+.search {
+  
 }
