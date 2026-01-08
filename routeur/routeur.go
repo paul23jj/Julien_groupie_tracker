@@ -7,7 +7,7 @@ import (
 	"Steam-API/controller"
 )
 
-// New construit et retourne un http.Handler (ServeMux) avec toutes les routes enregistrées.
+// New crée les routes
 func New() http.Handler {
 	mux := http.NewServeMux()
 

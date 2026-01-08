@@ -7,11 +7,8 @@ import (
 	"time"
 )
 
-// RAWGAPIKey is a fallback API key. Prefer setting RAWG_API_KEY environment variable.
-// WARNING: embedding secret keys in source is not recommended for production or public repositories.
-var RAWGAPIKey = "PUT_YOUR_RAWG_KEY_HERE"
+var RAWGAPIKey = "41b359451b3046c6b86785db848f7ded"
 
-// PageData représente les données passées aux templates.
 type PageData map[string]interface{}
 
 func APropos() PageData {
@@ -59,8 +56,6 @@ func getAPIKey() string {
 	return RAWGAPIKey
 }
 
-// Search performs a search using the RAWG API.
-// It returns PageData with keys: Title, Query, Results (slice) and optionally Error.
 func Search(query string) PageData {
 	pd := PageData{
 		"Title":   "Recherche",
@@ -78,7 +73,7 @@ func Search(query string) PageData {
 	}
 
 	client := &http.Client{Timeout: 10 * time.Second}
-	// RAWG API: https://api.rawg.io/api/games?key=KEY&search=QUERY
+	
 	req, err := http.NewRequest("GET", "https://api.rawg.io/api/games", nil)
 	if err != nil {
 		pd["Error"] = err.Error()
@@ -106,7 +101,6 @@ func Search(query string) PageData {
 		return pd
 	}
 
-	// RAWG returns results under "results" key.
 	if res, ok := parsed["results"]; ok {
 		pd["Results"] = res
 	} else {
@@ -115,7 +109,6 @@ func Search(query string) PageData {
 	return pd
 }
 
-// Index fetches featured games from RAWG and returns data for the homepage.
 func Index() PageData {
 	pd := PageData{
 		"Title":         "RAWR API Explorer",
