@@ -7,7 +7,7 @@ import (
 	"Steam-API/controller"
 )
 
-// New construit et retourne un http.Handler (ServeMux) avec toutes les routes enregistrées.
+// New crée les routes
 func New() http.Handler {
 	mux := http.NewServeMux()
 
@@ -20,6 +20,8 @@ func New() http.Handler {
 	mux.HandleFunc("/collection", collectionHandler)
 	mux.HandleFunc("/favoris", favorisHandler)
 	mux.HandleFunc("/recherche", rechercheHandler)
+	mux.HandleFunc("/traitment/search", traitmentSearchHandler)
+	mux.HandleFunc("/traitement/search", traitmentSearchHandler)
 	mux.HandleFunc("/ressources", ressourcesHandler)
 
 	mux.HandleFunc("/", indexHandler)
@@ -105,8 +107,30 @@ func ressourcesHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func traitmentSearchHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	if err := r.ParseForm(); err != nil {
+		http.Error(w, "parse error", http.StatusBadRequest)
+		return
+	}
+	query := r.FormValue("search")
+	data := controller.Search(query)
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	tmpl, err := template.ParseFiles("template/recherche.html")
+	if err != nil {
+		http.Error(w, "template parse error", http.StatusInternalServerError)
+		return
+	}
+	if err := tmpl.Execute(w, data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	data := map[string]interface{}{"Title": "Accueil"}
+	data := controller.Index()
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	tmpl, err := template.ParseFiles("template/index.html")
 	if err != nil {
