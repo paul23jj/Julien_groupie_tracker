@@ -21,6 +21,22 @@ la barre de paul
     <button type="submit">recherche</button>
   </form>
   </div>
+    
+    {{if .Query}}
+    <section class="results">
+        <h2>Résultats pour: {{.Query}}</h2>
+        {{if .Results}}
+        <ul>
+        {{range .Results}}
+            <li>{{.}}</li>
+        {{end}}
+        </ul>
+        {{else}}
+        <p>Aucun résultat.</p>
+        {{end}}
+    </section>
+    {{end}}
+
     </main>
 </body>
 </html>
