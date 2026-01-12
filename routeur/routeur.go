@@ -3,6 +3,7 @@ package routeur
 import (
 	"html/template"
 	"net/http"
+	"strconv"
 
 	"Steam-API/controller"
 )
@@ -56,7 +57,13 @@ func categoriesHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func collectionHandler(w http.ResponseWriter, r *http.Request) {
-	data := controller.Collection()
+	page := 1
+	if p := r.URL.Query().Get("page"); p != "" {
+		if pi, err := strconv.Atoi(p); err == nil && pi > 0 {
+			page = pi
+		}
+	}
+	data := controller.Collection(page)
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	tmpl, err := template.ParseFiles("template/collection.html")
 	if err != nil {

@@ -28,7 +28,7 @@
       <p>Explorez, découvrez et gérez votre collection de jeux RAWR grâce à une interface moderne connectée à l'API officielle de RAWG.</p>
       <div class="hero-actions">
         <a class="btn primary" href="/recherche">Parcourir les jeux</a>
-        <a class="btn" href="/ressources">Document API</a>
+        <a class="btn" href="https://api.rawg.io/docs/">Documentation API</a>
       </div>
     </div>
   </header>
@@ -37,28 +37,10 @@
     <section class="collection-grid">
       <h2>Collection</h2>
       <div class="collection-buttons">
-        <div class="col-btn">tout les jeux</div>
-        <div class="col-btn">gratuit</div>
-        <div class="col-btn">nouveaux</div>
-        <div class="col-btn">reduction</div>
-      </div>
-    </section>
-
-    <section class="featured">
-      <h2>Featured</h2>
-      <div class="featured-grid">
-        {{range .FeaturedGames}}
-        <div class="game-card">
-          {{with .}}
-            {{if .background_image}}
-              <img src="{{.background_image}}" alt="{{.name}}">
-            {{end}}
-            <div class="game-info">
-              <h3>{{.name}}</h3>
-            </div>
-          {{end}}
-        </div>
-        {{end}}
+        <a class="col-btn" href="/collection">tout les jeux</a>
+        <a class="col-btn" href="/collection">gratuit</a>
+        <a class="col-btn" href="/collection">nouveaux</a>
+        <a class="col-btn" href="/collection">reduction</a>
       </div>
     </section>
 

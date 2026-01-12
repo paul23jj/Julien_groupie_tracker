@@ -1,0 +1,23 @@
+- Système de filtre dans le categories
+- systeme de recherche
+- pagination genre faut faire en sortes d'afficher 10 ressources max et apres on appuie sur un bouton zehma page 2, 3, 4, 5
+- système de favoris
+
+BONUS :
+- système de connexion
+
+
+Endpoints : 
+suffixe /{id} pour tout le monde
+
+/games (avec l'id d'un jeu en particulier tu peux avoir toutes les infos du jeu)
+
+/genres (action, aventure, rp, strat, br, etc...)
+
+/platforms (sur quelle plateforme le jeu est dispo)
+
+/publishers (éditeur du jeu)
+
+/stores (différents endroits où on peut acheter le jeu)
+
+/tags (les tags c genre "jeu solo" "multi" "controller support" etc...)

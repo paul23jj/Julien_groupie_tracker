@@ -2,8 +2,10 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -24,10 +26,69 @@ func Categories() PageData {
 	}
 }
 
-func Collection() PageData {
-	return PageData{
-		"Title": "Collection",
+func Collection(page int) PageData {
+	pd := PageData{
+		"Title":    "Collection",
+		"Page":     page,
+		"Games":    []interface{}{},
+		"PrevPage": 0,
+		"NextPage": 0,
 	}
+
+	apiKey := getAPIKey()
+	if apiKey == "" {
+		pd["Error"] = "RAWG API key not set; returning empty collection"
+		return pd
+	}
+
+	client := &http.Client{Timeout: 10 * time.Second}
+	req, err := http.NewRequest("GET", "https://api.rawg.io/api/games", nil)
+	if err != nil {
+		pd["Error"] = err.Error()
+		return pd
+	}
+	q := req.URL.Query()
+	q.Add("key", apiKey)
+	q.Add("page_size", "10")
+	q.Add("page", strconv.Itoa(page))
+	req.URL.RawQuery = q.Encode()
+
+	resp, err := client.Do(req)
+	if err != nil {
+		pd["Error"] = err.Error()
+		return pd
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		pd["Error"] = "RAWG API returned status: " + resp.Status
+		return pd
+	}
+
+	var parsed map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&parsed); err != nil {
+		pd["Error"] = err.Error()
+		return pd
+	}
+
+	if res, ok := parsed["results"]; ok {
+		pd["Games"] = res
+		if s, ok := res.([]interface{}); ok {
+			fmt.Println("Collection: fetched", len(s), "games for page", page)
+		} else {
+			fmt.Println("Collection: results present but not a slice, type:", fmt.Sprintf("%T", res))
+		}
+	} else {
+		pd["Games"] = []interface{}{}
+		fmt.Println("Collection: no results key in parsed response")
+	}
+	if parsed["next"] != nil {
+		pd["NextPage"] = page + 1
+	}
+	if page > 1 {
+		pd["PrevPage"] = page - 1
+	}
+
+	return pd
 }
 
 func Favoris() PageData {
@@ -73,7 +134,7 @@ func Search(query string) PageData {
 	}
 
 	client := &http.Client{Timeout: 10 * time.Second}
-	
+
 	req, err := http.NewRequest("GET", "https://api.rawg.io/api/games", nil)
 	if err != nil {
 		pd["Error"] = err.Error()
