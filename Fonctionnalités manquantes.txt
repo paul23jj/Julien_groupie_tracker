@@ -1,6 +1,5 @@
 - Système de filtre dans le categories
 - systeme de recherche
-- pagination genre faut faire en sortes d'afficher 10 ressources max et apres on appuie sur un bouton zehma page 2, 3, 4, 5
 - système de favoris
 
 BONUS :

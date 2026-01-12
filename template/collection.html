@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Collection</title>
 	<link rel="stylesheet" href="../static/style.css">
+	<link rel="stylesheet" href="../static/styleCollection.css">
 </head>
 <body>
 
@@ -37,7 +38,7 @@
 				{{with index $game "background_image"}}
 				<img src="{{.}}" alt="{{index $game "name"}}" class="game-image">
 				{{end}}
-				<p>Sorti: {{index . "released"}}</p>
+				<p>Sortie : {{index . "released"}}</p>
 				<p>Note: {{index . "rating"}}</p>
 			</div>
 			{{end}}
@@ -52,5 +53,3 @@
 
 </body>
 </html>
-
-c
