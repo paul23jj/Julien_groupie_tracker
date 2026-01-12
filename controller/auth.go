@@ -49,7 +49,7 @@ func Collection(page int) PageData {
 	}
 	q := req.URL.Query()
 	q.Add("key", apiKey)
-	q.Add("page_size", "10")
+	q.Add("page_size", "12")
 	q.Add("page", strconv.Itoa(page))
 	req.URL.RawQuery = q.Encode()
 

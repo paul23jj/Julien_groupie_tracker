@@ -4,7 +4,6 @@ import (
 	"Steam-API/routeur"
 	"fmt"
 	"net/http"
-	"time"
 )
 
 func main() {
@@ -13,5 +12,3 @@ func main() {
 	fmt.Println("http://localhost:8080")
 	http.ListenAndServe(":8080", r)
 }
-
-func formatDate(v interface )

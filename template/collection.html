@@ -37,7 +37,7 @@
 				{{with index $game "background_image"}}
 				<img src="{{.}}" alt="{{index $game "name"}}" class="game-image">
 				{{end}}
-				<p>Sortie : {{index . "released"}}</p>
+				<p>Sortie : {{formatDate (index . "released")}}</p>
 				<p>Note: {{index . "rating"}}</p>
 			</div>
 			{{end}}

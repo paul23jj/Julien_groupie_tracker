@@ -65,7 +65,12 @@ func collectionHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	data := controller.Collection(page)
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	tmpl, err := template.ParseFiles("template/collection.html")
+
+	// create template with funcs so formatDate is available inside templates
+	tmpl := template.New("collection.html").Funcs(template.FuncMap{
+		"formatDate": controller.FormatDate,
+	})
+	tmpl, err := tmpl.ParseFiles("template/collection.html")
 	if err != nil {
 		http.Error(w, "template parse error", http.StatusInternalServerError)
 		return

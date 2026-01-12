@@ -48,7 +48,7 @@ body {
 .logo {
   width: 200px;
   position: relative;
-  left: 20px;
+  left: -30px;
   top: 0px;
   font-weight: 600;
   letter-spacing: 4px;
