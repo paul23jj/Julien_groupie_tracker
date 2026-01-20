@@ -23,7 +23,6 @@ func New() http.Handler {
 	mux.HandleFunc("/recherche", rechercheHandler)
 	mux.HandleFunc("/traitment/search", traitmentSearchHandler)
 	mux.HandleFunc("/traitement/search", traitmentSearchHandler)
-	mux.HandleFunc("/ressources", ressourcesHandler)
 
 	mux.HandleFunc("/", indexHandler)
 
