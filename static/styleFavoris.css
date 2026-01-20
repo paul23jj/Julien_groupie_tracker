@@ -16,11 +16,6 @@ body {
   min-height: 100vh;
 }
 
-header {
-    margin-top: 60px; 
-    margin-bottom: 30px;
-}
-
 main {
     position: relative;
     min-height: 400px;
