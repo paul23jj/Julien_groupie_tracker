@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
+	"encoding/json"
 
 	"Steam-API/controller"
 )
@@ -55,6 +56,11 @@ func categoriesHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func jsonMarshal(v interface{}) template.JS {
+	b, _ := json.Marshal(v)
+	return template.JS(string(b))
+}
+
 func collectionHandler(w http.ResponseWriter, r *http.Request) {
 	page := 1
 	if p := r.URL.Query().Get("page"); p != "" {
@@ -79,6 +85,7 @@ func collectionHandler(w http.ResponseWriter, r *http.Request) {
 	// create template with funcs so formatDate is available inside templates
 	tmpl := template.New("collection.html").Funcs(template.FuncMap{
 		"formatDate": controller.FormatDate,
+		"convertToJSON": jsonMarshal,
 	})
 	tmpl, err := tmpl.ParseFiles("template/collection.html")
 	if err != nil {

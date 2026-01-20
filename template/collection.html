@@ -28,10 +28,10 @@
 		{{if .Error}}
 			<p class="error">Erreur: {{.Error}}</p>
 		{{end}}
-
+	<div class="layout-wrapper">
 		<div class="filters-section">
 			<div class="filters-header">
-				<h2>Filtrer par catégorie</h2>
+				<h2>Filtrer par catégories :</h2>
 				<button id="resetFilters" class="reset-btn">Réinitialiser</button>
 			</div>
 			<div class="filters-container">
@@ -56,15 +56,11 @@
 				<label class="filter-option">
 					<input type="checkbox" value="Racing" class="filter-checkbox"> Course
 				</label>
-				<label class="filter-option">
-					<input type="checkbox" value="Indie" class="filter-checkbox"> Indie
-				</label>
 			</div>
 		</div>
-
 		<section class="games-grid">
 			{{range .Games}}
-			<div class="game-card">
+			<div class="game-card clickable" data-game='{{convertToJSON .}}'>
 				<h3>{{index . "name"}}</h3>
                 {{ $game := .}}
 				{{with index $game "background_image"}}
@@ -75,11 +71,18 @@
 			</div>
 			{{end}}
 		</section>
-
+	</div>
 		<div class="pagination">
 			{{if .PrevPage}}<a class="page-link" href="/collection?page={{.PrevPage}}">← Précédent</a>{{end}}
 			<span>Page {{.Page}}</span>
 			{{if .NextPage}}<a class="page-link" href="/collection?page={{.NextPage}}">Suivant →</a>{{end}}
+		</div>
+		<div id="gameModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<div id="gameDetails">
+				</div>
+			</div>
 		</div>
 	</main>
 

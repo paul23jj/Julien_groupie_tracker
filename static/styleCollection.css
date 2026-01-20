@@ -3,14 +3,19 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   margin-top: 18px;
+  width: 75%;
 }
 
 .filters-section {
+  position: sticky;
+  top: 20px;
+  height: fit-content; /* pour que la box se colle au texte en gros */
   background: rgba(38, 61, 89, 0.6);
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 25px;
   border: 1px solid rgba(102, 192, 244, 0.2);
+  width: 25%;
 }
 
 .filters-header {
@@ -121,4 +126,43 @@
   color: #ff7b7b;
   text-align: center;
   margin: 12px 0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: #172027;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #66c0f4;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 700px;
+  color: #e6f7ff;
+}
+
+.close {
+  color: #66c0f4;
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #ffffff;
+}
+
+.layout-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }

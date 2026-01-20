@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fmt"
+	"html/template"
 	"strings"
 	"time"
 )
@@ -117,8 +118,8 @@ func hasMatchingGenre(game map[string]interface{}, selectedGenres []string) bool
 }
 
 // GetCollectionJS retourne le code JavaScript pour la page Collection
-func GetCollectionJS() string {
-	return `const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+func GetCollectionJS() template.JS {
+	return template.JS(`const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
 		const resetBtn = document.getElementById('resetFilters');
 
 		// Récupérer les genres depuis les paramètres d'URL
@@ -169,5 +170,5 @@ func GetCollectionJS() string {
 		resetBtn.addEventListener('click', resetFilters);
 
 		// Restaurer les filtres au chargement
-		restoreFilters();`
+		restoreFilters();`)
 }
