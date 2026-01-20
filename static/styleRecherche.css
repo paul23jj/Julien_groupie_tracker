@@ -94,21 +94,18 @@ main {
 
 /* la barre recherche */
 .barre-recherche {
-    position: relative;
-    margin-bottom: 50px;
-    text-align: left;
+    margin-top: 10px;   /*espace au dessus de la barre*/
+    margin-bottom: 0px;  /*espace en dessous de la barre*/
 }
 
 .barre-recherche input[type="text"] {
-    width: 500px;          
-    height: 40px;           
-    background-color: #2A475E;
-    border: 1px solid #000000; 
-    border-radius: 3px;     
-    color: white;           
-    padding-left: 15px;     
-    font-size: 16px;        
-    outline: none;
+    width: 500px;      /*taille de la barre*/   
+    height: 40px;      /*taille de la barre*/    
+    background-color: #2A475E;  /*couleur de la barre*/
+    border: 1px solid #000000;  /*bordure de la barre*/
+    border-radius: 3px;              /*bordure arrondie*/
+    padding-left: 15px;     /*espace à l'intérieur de la barre*/  
+    font-size: 16px;        /*taille du texte*/
 }
 /* fin de la barre de recherche */
 
@@ -135,4 +132,7 @@ main {
     object-fit: cover;
 }
 /* fin de la loupe */
-
+/* ligne sous le header */
+.ligne {
+    margin-top: 1px;
+}
