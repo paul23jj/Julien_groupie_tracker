@@ -134,5 +134,5 @@ main {
 /* fin de la loupe */
 /* ligne sous le header */
 .ligne {
-    margin-top: 1px;
+    margin-top: 0px;
 }
