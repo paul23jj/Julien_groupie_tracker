@@ -27,12 +27,18 @@ func Categories() PageData {
 }
 
 func Collection(page int) PageData {
+	return CollectionWithGenres(page, []string{})
+}
+
+// CollectionWithGenres récupère les jeux avec possibilité de filtrer par genres
+func CollectionWithGenres(page int, genres []string) PageData {
 	pd := PageData{
-		"Title":    "Collection",
-		"Page":     page,
-		"Games":    []interface{}{},
-		"PrevPage": 0,
-		"NextPage": 0,
+		"Title":        "Collection",
+		"Page":         page,
+		"Games":        []interface{}{},
+		"PrevPage":     0,
+		"NextPage":     0,
+		"CollectionJS": GetCollectionJS(),
 	}
 
 	apiKey := getAPIKey()
@@ -71,10 +77,13 @@ func Collection(page int) PageData {
 	}
 
 	if res, ok := parsed["results"]; ok {
-		pd["Games"] = res
 		if s, ok := res.([]interface{}); ok {
-			fmt.Println("Collection: fetched", len(s), "games for page", page)
+			// Appliquer le filtre par genres si des genres sont spécifiés
+			filtered := FilterGamesByGenre(s, genres)
+			pd["Games"] = filtered
+			fmt.Println("Collection: fetched", len(s), "games, filtered to", len(filtered), "for page", page)
 		} else {
+			pd["Games"] = []interface{}{}
 			fmt.Println("Collection: results present but not a slice, type:", fmt.Sprintf("%T", res))
 		}
 	} else {

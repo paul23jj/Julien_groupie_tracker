@@ -63,7 +63,18 @@ func collectionHandler(w http.ResponseWriter, r *http.Request) {
 			page = pi
 		}
 	}
-	data := controller.Collection(page)
+
+	// Récupérer les genres depuis les paramètres GET
+	genres := r.URL.Query()["genre"]
+
+	// Utiliser CollectionWithGenres si des genres sont spécifiés, sinon Collection
+	var data controller.PageData
+	if len(genres) > 0 {
+		data = controller.CollectionWithGenres(page, genres)
+	} else {
+		data = controller.Collection(page)
+	}
+
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	// create template with funcs so formatDate is available inside templates

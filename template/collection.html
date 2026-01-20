@@ -29,6 +29,39 @@
 			<p class="error">Erreur: {{.Error}}</p>
 		{{end}}
 
+		<div class="filters-section">
+			<div class="filters-header">
+				<h2>Filtrer par catégorie</h2>
+				<button id="resetFilters" class="reset-btn">Réinitialiser</button>
+			</div>
+			<div class="filters-container">
+				<label class="filter-option">
+					<input type="checkbox" value="Action" class="filter-checkbox"> Action
+				</label>
+				<label class="filter-option">
+					<input type="checkbox" value="Adventure" class="filter-checkbox"> Aventure
+				</label>
+				<label class="filter-option">
+					<input type="checkbox" value="RPG" class="filter-checkbox"> RPG
+				</label>
+				<label class="filter-option">
+					<input type="checkbox" value="Strategy" class="filter-checkbox"> Stratégie
+				</label>
+				<label class="filter-option">
+					<input type="checkbox" value="Sports" class="filter-checkbox"> Sports
+				</label>
+				<label class="filter-option">
+					<input type="checkbox" value="Puzzle" class="filter-checkbox"> Puzzle
+				</label>
+				<label class="filter-option">
+					<input type="checkbox" value="Racing" class="filter-checkbox"> Course
+				</label>
+				<label class="filter-option">
+					<input type="checkbox" value="Indie" class="filter-checkbox"> Indie
+				</label>
+			</div>
+		</div>
+
 		<section class="games-grid">
 			{{range .Games}}
 			<div class="game-card">
@@ -49,6 +82,10 @@
 			{{if .NextPage}}<a class="page-link" href="/collection?page={{.NextPage}}">Suivant →</a>{{end}}
 		</div>
 	</main>
+
+	<script>
+		{{.CollectionJS}}
+	</script>
 
 </body>
 </html>
