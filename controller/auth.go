@@ -20,12 +20,6 @@ func APropos() PageData {
 	}
 }
 
-func Categories() PageData {
-	return PageData{
-		"Title": "Catégories",
-	}
-}
-
 func Collection(page int) PageData {
 	return CollectionWithGenres(page, []string{})
 }
@@ -106,31 +100,14 @@ func Favoris() PageData {
 	}
 }
 
-func Recherche() PageData {
-	return PageData{
-		"Title": "Recherche",
-	}
-}
-
-func Ressources() PageData {
-	return PageData{
-		"Title": "Ressources",
-	}
-}
-
-func getAPIKey() string {
-	k := os.Getenv("RAWG_API_KEY")
-	if k != "" {
-		return k
-	}
-	return RAWGAPIKey
-}
-
-func Search(query string) PageData {
+func Recherche(query string) PageData {
 	pd := PageData{
-		"Title":   "Recherche",
-		"Query":   query,
-		"Results": []interface{}{},
+		"Title":      "Recherche",
+		"Games":      []interface{}{},
+		"Query":      query,
+		"Results":    []interface{}{},
+		"Count":      0,
+		"HasResults": false,
 	}
 	if query == "" {
 		return pd
@@ -152,6 +129,8 @@ func Search(query string) PageData {
 	q := req.URL.Query()
 	q.Add("key", apiKey)
 	q.Add("search", query)
+	q.Add("page_size", "20")
+	q.Add("search_precise", "true")
 	req.URL.RawQuery = q.Encode()
 
 	resp, err := client.Do(req)
@@ -172,11 +151,39 @@ func Search(query string) PageData {
 	}
 
 	if res, ok := parsed["results"]; ok {
-		pd["Results"] = res
+
+		if results, ok := res.([]interface{}); ok {
+			pd["Results"] = results
+			pd["Count"] = len(results)
+			pd["HasResults"] = len(results) > 0
+
+			fmt.Println("Recherche: found", len(results), "games for query:", query)
+		} else {
+			pd["Results"] = []interface{}{}
+			fmt.Println("Recherche: results not a slice for query:", query)
+		}
 	} else {
 		pd["Results"] = []interface{}{}
+		fmt.Println("Recherche: no results key for query:", query)
+	}
+	if count, ok := parsed["count"]; ok {
+		pd["TotalCount"] = count
 	}
 	return pd
+}
+
+func Ressources() PageData {
+	return PageData{
+		"Title": "Ressources",
+	}
+}
+
+func getAPIKey() string {
+	k := os.Getenv("RAWG_API_KEY")
+	if k != "" {
+		return k
+	}
+	return RAWGAPIKey
 }
 
 func Index() PageData {

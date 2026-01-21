@@ -1,10 +1,10 @@
 package routeur
 
 import (
+	"encoding/json"
 	"html/template"
 	"net/http"
 	"strconv"
-	"encoding/json"
 
 	"Steam-API/controller"
 )
@@ -18,7 +18,6 @@ func New() http.Handler {
 	mux.Handle("/icons/", http.StripPrefix("/icons/", http.FileServer(http.Dir("icons"))))
 
 	mux.HandleFunc("/aPropos", aProposHandler)
-	mux.HandleFunc("/categories", categoriesHandler)
 	mux.HandleFunc("/collection", collectionHandler)
 	mux.HandleFunc("/favoris", favorisHandler)
 	mux.HandleFunc("/recherche", rechercheHandler)
@@ -34,19 +33,6 @@ func aProposHandler(w http.ResponseWriter, r *http.Request) {
 	data := controller.APropos()
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	tmpl, err := template.ParseFiles("template/aPropos.html")
-	if err != nil {
-		http.Error(w, "template parse error", http.StatusInternalServerError)
-		return
-	}
-	if err := tmpl.Execute(w, data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func categoriesHandler(w http.ResponseWriter, r *http.Request) {
-	data := controller.Categories()
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	tmpl, err := template.ParseFiles("template/categories.html")
 	if err != nil {
 		http.Error(w, "template parse error", http.StatusInternalServerError)
 		return
@@ -84,7 +70,7 @@ func collectionHandler(w http.ResponseWriter, r *http.Request) {
 
 	// create template with funcs so formatDate is available inside templates
 	tmpl := template.New("collection.html").Funcs(template.FuncMap{
-		"formatDate": controller.FormatDate,
+		"formatDate":    controller.FormatDate,
 		"convertToJSON": jsonMarshal,
 	})
 	tmpl, err := tmpl.ParseFiles("template/collection.html")
@@ -111,7 +97,9 @@ func favorisHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func rechercheHandler(w http.ResponseWriter, r *http.Request) {
-	data := controller.Recherche()
+	// Récupérer le paramètre de recherche depuis l'URL (?search=...)
+	query := r.URL.Query().Get("search")
+	data := controller.Recherche(query)
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	tmpl, err := template.ParseFiles("template/recherche.html")
 	if err != nil {
@@ -145,8 +133,10 @@ func traitmentSearchHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "parse error", http.StatusBadRequest)
 		return
 	}
+	// Récupérer la valeur du champ "search" du formulaire
 	query := r.FormValue("search")
-	data := controller.Search(query)
+	// CORRIGÉ: Passer query à la fonction Recherche
+	data := controller.Recherche(query)
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	tmpl, err := template.ParseFiles("template/recherche.html")
 	if err != nil {

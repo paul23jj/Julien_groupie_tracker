@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styleCollection.css">
     <link rel="stylesheet" href="../static/styleRecherche.css">
     <title>Recherche API-Steam</title>
 </head>
@@ -27,10 +28,32 @@
         <div class="barre-recherche">
              <form action="/traitment/search" method="post">
                 <input type="text" name="search" placeholder="recherche">
+                 <button type="submit">Rechercher</button>
+                 <button type="submit">Réinitialiser</button>
             </form>
         </div>
          <div class="loupe">
              <img src="../icons/loupe.png" alt="loupe recherche" >
+        </div>
+        <div class="resultats">
+            {{if .Query}}
+                <h2>Résultats pour : "{{.Query}}"</h2>
+                {{if .HasResults}}
+                    <p>{{.Count}} jeu(x) trouvé(s)</p>
+                    <div class="games-grid">
+                        {{range .Results}}
+                        <div class="game-card">
+                            <img src="{{.background_image}}" alt="{{.name}}">
+                            <h3>{{.name}}</h3>
+                            <p>Note : {{.rating}}/5</p>
+                            <p>Date de sortie  {{.released}}</p>
+                        </div>
+                        {{end}}
+                    </div>
+            {{else}}
+                    <p>Aucun jeu trouvé pour cette recherche.</p>
+                {{end}}
+            {{end}}
         </div>
     </main>
 </body>
