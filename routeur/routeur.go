@@ -101,7 +101,12 @@ func rechercheHandler(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query().Get("search")
 	data := controller.Recherche(query)
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	tmpl, err := template.ParseFiles("template/recherche.html")
+	// create template with funcs so formatDate is available inside templates
+	tmpl := template.New("recherche.html").Funcs(template.FuncMap{
+		"formatDate":    controller.FormatDate,
+		"convertToJSON": jsonMarshal,
+	})
+	tmpl, err := tmpl.ParseFiles("template/recherche.html")
 	if err != nil {
 		http.Error(w, "template parse error", http.StatusInternalServerError)
 		return
@@ -125,7 +130,13 @@ func traitmentSearchHandler(w http.ResponseWriter, r *http.Request) {
 	// CORRIGÉ: Passer query à la fonction Recherche
 	data := controller.Recherche(query)
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	tmpl, err := template.ParseFiles("template/recherche.html")
+
+	// create template with funcs so formatDate is available inside templates
+	tmpl := template.New("recherche.html").Funcs(template.FuncMap{
+		"formatDate":    controller.FormatDate,
+		"convertToJSON": jsonMarshal,
+	})
+	tmpl, err := tmpl.ParseFiles("template/recherche.html")
 	if err != nil {
 		http.Error(w, "template parse error", http.StatusInternalServerError)
 		return

@@ -119,8 +119,12 @@ func hasMatchingGenre(game map[string]interface{}, selectedGenres []string) bool
 
 // GetCollectionJS retourne le code JavaScript pour la page Collection
 func GetCollectionJS() template.JS {
-	return template.JS(`const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+	jsCode := `const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
 		const resetBtn = document.getElementById('resetFilters');
+		const gameCards = document.querySelectorAll('.game-card.clickable');
+		const modal = document.getElementById('gameModal');
+		const modalContent = document.getElementById('gameDetails');
+		const closeBtn = document.querySelector('.close');
 
 		// Récupérer les genres depuis les paramètres d'URL
 		function getGenresFromURL() {
@@ -163,12 +167,49 @@ func GetCollectionJS() template.JS {
 			window.location.href = '/collection';
 		}
 
+		// Afficher la modale avec les détails du jeu
+		function openModal(game) {
+			let genres = game.genres ? game.genres.map(g => g.name).join(', ') : 'N/A';
+			let platforms = game.platforms ? game.platforms.map(p => p.platform.name).join(', ') : 'N/A';
+			
+			modalContent.innerHTML = ` + "`" + `
+				<div class="modal-body">
+					<img src="${game.background_image}" alt="${game.name}" style="width: 100%; border-radius: 8px; margin-bottom: 15px;">
+					<h2>${game.name}</h2>
+					<p><strong>Date de sortie :</strong> ${game.released || 'Inconnue'}</p>
+					<p><strong>Note :</strong> ${game.rating || 'N/A'} / 5</p>
+					<p><strong>Genres :</strong> ${genres}</p>
+					<p><strong>Plateformes :</strong> ${platforms}</p>
+					${game.description_raw ? ` + "`" + `<p><strong>Description :</strong><br>${game.description_raw}</p>` + "`" + ` : ''}
+				</div>
+			` + "`" + `;
+			modal.style.display = 'block';
+		}
+
 		filterCheckboxes.forEach(checkbox => {
 			checkbox.addEventListener('change', applyFilters);
 		});
 
 		resetBtn.addEventListener('click', resetFilters);
 
+		gameCards.forEach(card => {
+			card.addEventListener('click', () => {
+				const gameData = JSON.parse(card.getAttribute('data-game'));
+				openModal(gameData);
+			});
+		});
+
+		closeBtn.addEventListener('click', () => {
+			modal.style.display = 'none';
+		});
+
+		window.addEventListener('click', (event) => {
+			if (event.target == modal) {
+				modal.style.display = 'none';
+			}
+		});
+
 		// Restaurer les filtres au chargement
-		restoreFilters();`)
+		restoreFilters();`
+	return template.JS(jsCode)
 }

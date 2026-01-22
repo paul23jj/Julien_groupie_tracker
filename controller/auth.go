@@ -102,12 +102,13 @@ func Favoris() PageData {
 
 func Recherche(query string) PageData {
 	pd := PageData{
-		"Title":      "Recherche",
-		"Games":      []interface{}{},
-		"Query":      query,
-		"Results":    []interface{}{},
-		"Count":      0,
-		"HasResults": false,
+		"Title":        "Recherche",
+		"Games":        []interface{}{},
+		"Query":        query,
+		"Results":      []interface{}{},
+		"Count":        0,
+		"HasResults":   false,
+		"CollectionJS": GetCollectionJS(),
 	}
 	if query == "" {
 		return pd

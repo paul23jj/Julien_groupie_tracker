@@ -79,6 +79,17 @@
   min-height: 160px;
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-card.clickable {
+  cursor: pointer;
+}
+
+.game-card.clickable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(102, 192, 244, 0.3);
+  background: #1c2834;
 }
 
 .game-card img,

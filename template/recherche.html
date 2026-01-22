@@ -22,8 +22,7 @@
             </div>
         </nav>
         <div class="ligne"></div>
-            <h1>Recherche de Jeux</h1>
-        </div>
+        <h1>Recherche de Jeux</h1>
     <main>
         <div class="barre-recherche">
              <form action="/traitment/search" method="post">
@@ -42,7 +41,7 @@
                     <p>{{.Count}} jeu(x) trouvé(s)</p>
                     <div class="games-grid">
                         {{range .Results}}
-                        <div class="game-card">
+                        <div class="game-card clickable" data-game='{{convertToJSON .}}'>
                             <img src="{{.background_image}}" alt="{{.name}}">
                             <h3>{{.name}}</h3>
                             <p>Note : {{.rating}}/5</p>
@@ -50,11 +49,22 @@
                         </div>
                         {{end}}
                     </div>
+                    <div id="gameModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div id="gameDetails">
+                            </div>
+                        </div>
+                    </div>
             {{else}}
                     <p>Aucun jeu trouvé pour cette recherche.</p>
                 {{end}}
             {{end}}
         </div>
     </main>
+
+    <script>
+        {{.CollectionJS}}
+    </script>
 </body>
 </html>
