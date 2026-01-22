@@ -122,6 +122,8 @@ main {
     gap: 20px; /* Espace entre les éléments */
     padding: 20px; /* Espace intérieur */
     border-radius: 8px; /* Coins arrondis */
+    font-size: 18px; /* Texte plus gros */
+    line-height: 1.6; /* Espacement entre les lignes */
 }
 
 /* Boîte 2 - au centre (Backend) */
@@ -136,6 +138,8 @@ main {
     gap: 20px; /* Espace entre les éléments */
     padding: 20px; /* Espace intérieur */
     border-radius: 8px; /* Coins arrondis */
+    font-size: 18px; /* Texte plus gros */
+    line-height: 1.6; /* Espacement entre les lignes */
 }
 
 /* Boîte 3 - alignée à droite (Collaboration) */
@@ -150,4 +154,13 @@ main {
     gap: 20px; /* Espace entre les éléments */
     padding: 20px; /* Espace intérieur */
     border-radius: 8px; /* Coins arrondis */
+    font-size: 18px; /* Texte plus gros */
+    line-height: 1.6; /* Espacement entre les lignes */
+}
+
+/* Contenu principal de la section groscarre */
+.content {
+    font-size: 18px; /* Texte plus gros */
+    line-height: 1.6; /* Espacement entre les lignes */
+    text-align: center; /* Texte centré */
 }
