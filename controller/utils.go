@@ -117,24 +117,36 @@ func hasMatchingGenre(game map[string]interface{}, selectedGenres []string) bool
 	return false
 }
 
-var FavorisStore = make(map[string]map[string]interface{})
+var favorisStore = make(map[string]map[string]interface{})
 
-func AddFavoris(gamesID string, gameData map[string]interface{}) {
+func AddFavoris(gameID string, gameData map[string]interface{}) {
 	favorisStore[gameID] = gameData
 	fmt.Println("Ajouté aux favoris :", gameID)
 }
 
-func Favoris() PageData {
-	return PageData{
-		"Title":        "Favoris",
-		"Games":        GetFavoris(),
-		"CollectionJS": GetCollectionJS(),
+func RemoveFavoris(gameID string) {
+	delete(favorisStore, gameID)
+	fmt.Println("Supprimé des favoris :", gameID)
+}
+
+func GetFavoris() []interface{} {
+	favoris := make([]interface{}, 0, len(favorisStore))
+	for _, game := range favorisStore {
+		favoris = append(favoris, game)
 	}
+	return favoris
+}
+
+func IsFavoris(gameID string) bool {
+	_, exists := favorisStore[gameID]
+	return exists
 }
 
 // GetCollectionJS retourne le code JavaScript pour la page Collection
 func GetCollectionJS() template.JS {
-	jsCode := `const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+	jsCode := `
+		// ============ GESTION DES FILTRES ============
+		const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
 		const resetBtn = document.getElementById('resetFilters');
 		const gameCards = document.querySelectorAll('.game-card.clickable');
 		const modal = document.getElementById('gameModal');
@@ -164,7 +176,7 @@ func GetCollectionJS() template.JS {
 				.map(cb => cb.value);
 
 			const params = new URLSearchParams();
-			params.set('page', '1'); // Retour à la page 1 quand on filtre
+			params.set('page', '1');
 			selectedGenres.forEach(genre => {
 				params.append('genre', genre);
 			});
@@ -182,6 +194,135 @@ func GetCollectionJS() template.JS {
 			window.location.href = '/collection';
 		}
 
+		// ============ GESTION DES FAVORIS ============
+		
+		// Récupérer les favoris depuis localStorage
+		function getFavoris() {
+			const favoris = localStorage.getItem('favoris');
+			return favoris ? JSON.parse(favoris) : {};
+		}
+
+		// Sauvegarder les favoris dans localStorage
+		function saveFavoris(favoris) {
+			localStorage.setItem('favoris', JSON.stringify(favoris));
+		}
+
+		// Ajouter un jeu aux favoris
+		async function addToFavoris(gameId, gameData) {
+			try {
+				const response = await fetch('/api/favoris/add', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(gameData)
+				});
+
+				if (response.ok) {
+					const favoris = getFavoris();
+					favoris[gameId] = gameData;
+					saveFavoris(favoris);
+					console.log('Ajouté aux favoris:', gameId);
+					return true;
+				}
+			} catch (error) {
+				console.error('Erreur lors de l\'ajout aux favoris:', error);
+			}
+			return false;
+		}
+
+		// Retirer un jeu des favoris
+		async function removeFromFavoris(gameId) {
+			try {
+				const response = await fetch('/api/favoris/remove', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ id: gameId })
+				});
+
+				if (response.ok) {
+					const favoris = getFavoris();
+					delete favoris[gameId];
+					saveFavoris(favoris);
+					console.log('Retiré des favoris:', gameId);
+					return true;
+				}
+			} catch (error) {
+				console.error('Erreur lors du retrait des favoris:', error);
+			}
+			return false;
+		}
+
+		// Vérifier si un jeu est dans les favoris
+		function isFavoris(gameId) {
+			const favoris = getFavoris();
+			return favoris.hasOwnProperty(gameId.toString());
+		}
+
+		// Mettre à jour l'état visuel du bouton favori
+		function updateFavoriteButton(button, isFav) {
+			const heartPath = button.querySelector('.heart-icon path');
+			if (isFav) {
+				button.classList.add('active');
+				heartPath.setAttribute('fill', 'currentColor');
+			} else {
+				button.classList.remove('active');
+				heartPath.setAttribute('fill', 'none');
+			}
+		}
+
+		// Initialiser les boutons favoris
+		function initFavoriteButtons() {
+			const favoriteButtons = document.querySelectorAll('.favorite-btn');
+			
+			favoriteButtons.forEach(button => {
+				const gameId = button.getAttribute('data-game-id');
+				
+				// Restaurer l'état depuis localStorage
+				if (isFavoris(gameId)) {
+					updateFavoriteButton(button, true);
+				}
+
+				// Gérer le clic sur le bouton favori
+				button.addEventListener('click', async (e) => {
+					e.stopPropagation(); // Empêcher l'ouverture de la modale
+					
+					const gameData = JSON.parse(button.getAttribute('data-game'));
+					const isCurrentlyFav = isFavoris(gameId);
+
+					if (isCurrentlyFav) {
+						const success = await removeFromFavoris(gameId);
+						if (success) {
+							updateFavoriteButton(button, false);
+							
+							// Si on est sur la page favoris, retirer la carte
+							if (window.location.pathname === '/favoris') {
+								button.closest('.game-card').style.animation = 'fadeOut 0.3s ease';
+								setTimeout(() => {
+									button.closest('.game-card').remove();
+									
+									// Vérifier s'il reste des jeux
+									const remainingCards = document.querySelectorAll('.game-card');
+									if (remainingCards.length === 0) {
+										location.reload(); // Recharger pour afficher le message vide
+									}
+								}, 300);
+							}
+						}
+					} else {
+						const success = await addToFavoris(gameId, gameData);
+						if (success) {
+							updateFavoriteButton(button, true);
+						}
+					}
+				});
+			});
+		}
+
+		// ============ GESTION DE LA MODALE ============
+		
 		// Afficher la modale avec les détails du jeu
 		function openModal(game) {
 			let genres = game.genres ? game.genres.map(g => g.name).join(', ') : 'N/A';
@@ -201,30 +342,55 @@ func GetCollectionJS() template.JS {
 			modal.style.display = 'block';
 		}
 
-		filterCheckboxes.forEach(checkbox => {
-			checkbox.addEventListener('change', applyFilters);
-		});
+		// ============ EVENT LISTENERS ============
+		
+		// Filtres (uniquement sur la page collection)
+		if (filterCheckboxes.length > 0) {
+			filterCheckboxes.forEach(checkbox => {
+				checkbox.addEventListener('change', applyFilters);
+			});
+		}
 
-		resetBtn.addEventListener('click', resetFilters);
+		if (resetBtn) {
+			resetBtn.addEventListener('click', resetFilters);
+		}
 
+		// Cartes de jeux cliquables
 		gameCards.forEach(card => {
-			card.addEventListener('click', () => {
+			card.addEventListener('click', (e) => {
+				// Ne pas ouvrir la modale si on clique sur le bouton favori
+				if (e.target.closest('.favorite-btn')) {
+					return;
+				}
 				const gameData = JSON.parse(card.getAttribute('data-game'));
 				openModal(gameData);
 			});
 		});
 
-		closeBtn.addEventListener('click', () => {
-			modal.style.display = 'none';
-		});
-
-		window.addEventListener('click', (event) => {
-			if (event.target == modal) {
+		// Modale
+		if (closeBtn) {
+			closeBtn.addEventListener('click', () => {
 				modal.style.display = 'none';
-			}
-		});
+			});
+		}
 
-		// Restaurer les filtres au chargement
-		restoreFilters();`
+		if (modal) {
+			window.addEventListener('click', (event) => {
+				if (event.target == modal) {
+					modal.style.display = 'none';
+				}
+			});
+		}
+
+		// ============ INITIALISATION ============
+		
+		// Restaurer les filtres au chargement (uniquement sur la page collection)
+		if (filterCheckboxes.length > 0) {
+			restoreFilters();
+		}
+
+		// Initialiser les boutons favoris
+		initFavoriteButtons();
+	`
 	return template.JS(jsCode)
 }

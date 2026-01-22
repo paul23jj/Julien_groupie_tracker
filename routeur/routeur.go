@@ -2,6 +2,7 @@ package routeur
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -23,6 +24,9 @@ func New() http.Handler {
 	mux.HandleFunc("/recherche", rechercheHandler)
 	mux.HandleFunc("/traitment/search", traitmentSearchHandler)
 	mux.HandleFunc("/traitement/search", traitmentSearchHandler)
+	mux.HandleFunc("/api/favoris/add", addFavorisHandler)
+	mux.HandleFunc("/api/favoris/remove", removeFavorisHandler)
+	mux.HandleFunc("/api/favoris/list", listFavorisHandler)
 
 	mux.HandleFunc("/", indexHandler)
 
@@ -86,7 +90,13 @@ func collectionHandler(w http.ResponseWriter, r *http.Request) {
 func favorisHandler(w http.ResponseWriter, r *http.Request) {
 	data := controller.Favoris()
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	tmpl, err := template.ParseFiles("template/favoris.html")
+
+	// Ajouter les fonctions template nécessaires
+	tmpl := template.New("favoris.html").Funcs(template.FuncMap{
+		"formatDate":    controller.FormatDate,
+		"convertToJSON": jsonMarshal,
+	})
+	tmpl, err := tmpl.ParseFiles("template/favoris.html")
 	if err != nil {
 		http.Error(w, "template parse error", http.StatusInternalServerError)
 		return
@@ -94,6 +104,50 @@ func favorisHandler(w http.ResponseWriter, r *http.Request) {
 	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func addFavorisHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var gameData map[string]interface{}
+	if err := json.NewDecoder(r.Body).Decode(&gameData); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	gameID := fmt.Sprintf("%v", gameData["id"])
+	controller.AddFavoris(gameID, gameData)
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "added"})
+}
+
+func removeFavorisHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var data map[string]interface{}
+	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	gameID := fmt.Sprintf("%v", data["id"])
+	controller.RemoveFavoris(gameID)
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "removed"})
+}
+
+func listFavorisHandler(w http.ResponseWriter, r *http.Request) {
+	favoris := controller.GetFavoris()
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(favoris)
 }
 
 func rechercheHandler(w http.ResponseWriter, r *http.Request) {

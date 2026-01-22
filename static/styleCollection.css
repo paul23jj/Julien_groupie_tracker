@@ -190,3 +190,85 @@
   flex-direction: row; /* Disposition horizontale */
   gap: 20px; /* Espace entre les sections */
 }
+
+/* ============ BOUTONS FAVORIS ============ */
+
+.game-card {
+  position: relative;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.favorite-btn:active {
+  transform: scale(0.95);
+}
+
+.heart-icon {
+  width: 24px;
+  height: 24px;
+  color: #e74c3c;
+  transition: all 0.3s ease;
+}
+
+.favorite-btn path {
+  transition: fill 0.3s ease;
+}
+
+.favorite-btn:not(.active) .heart-icon {
+  color: #888;
+}
+
+.favorite-btn.active .heart-icon {
+  color: #e74c3c;
+  animation: heartBeat 0.3s ease;
+}
+
+/* Animation du cœur */
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.3);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Animation de fadeOut pour la suppression */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}

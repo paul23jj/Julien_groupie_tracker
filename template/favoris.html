@@ -25,3 +25,57 @@
             <img class="Coeur" src="../icons/heart.svg" alt="Coeur">
             <h1>Vos Jeux Favoris</h1>
         </div>
+    </header>
+
+    <main class="container">
+        {{if .Games}}
+        {{if gt (len .Games) 0}}
+        <section class="games-grid">
+            {{range .Games}}
+            <div class="game-card clickable" data-game='{{convertToJSON .}}'>
+                <button class="favorite-btn active" data-game-id="{{index . "id"}}" data-game='{{convertToJSON .}}'>
+                <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                </button>
+                <h3>{{index . "name"}}</h3>
+                {{ $game := .}}
+                {{with index $game "background_image"}}
+                <img src="{{.}}" alt="{{index $game "name"}}" class="game-image">
+                {{end}}
+                <p>Sortie : {{formatDate (index . "released")}}</p>
+                <p>Note: {{index . "rating"}}</p>
+            </div>
+            {{end}}
+        </section>
+        {{else}}
+        <div class="empty-state">
+            <svg class="empty-heart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#ccc" stroke-width="2"/>
+            </svg>
+            <p>Vous n'avez pas encore de jeux favoris</p>
+            <p>Explorez la <a href="/collection">collection</a> ou faites une <a href="/recherche">recherche</a> pour ajouter des jeux</p>
+        </div>
+        {{end}}
+        {{else}}
+        <div class="empty-state">
+            <svg class="empty-heart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#ccc" stroke-width="2"/>
+            </svg>
+            <p>Vous n'avez pas encore de jeux favoris</p>
+            <p>Explorez la <a href="/collection">collection</a> ou faites une <a href="/recherche">recherche</a> pour ajouter des jeux</p>
+        </div>
+        {{end}}
+
+        <div id="gameModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="gameDetails">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        {{.CollectionJS}}
+    </script>

@@ -96,7 +96,9 @@ func CollectionWithGenres(page int, genres []string) PageData {
 
 func Favoris() PageData {
 	return PageData{
-		"Title": "Favoris",
+		"Title":        "Favoris",
+		"Games":        GetFavoris(),
+		"CollectionJS": GetCollectionJS(),
 	}
 }
 
