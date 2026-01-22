@@ -22,13 +22,14 @@
             </div>
         </nav>
         <div class="ligne"></div>
-        <h1>Recherche de Jeux</h1>
+            <h1>Recherche de Jeux</h1>
+        </div>
     <main>
         <div class="barre-recherche">
              <form action="/traitment/search" method="post">
                 <input type="text" name="search" placeholder="recherche">
                  <button type="submit" class="search-btn">
-                    <img src="/icons/recherche_steam-removebg-preview.png" alt="Rechercher">
+                    <img src="../icons/recherche_steam-removebg-preview.png" alt="Rechercher">
                  </button>
             </form>
         </div>
@@ -42,7 +43,7 @@
                     <p>{{.Count}} jeu(x) trouvé(s)</p>
                     <div class="games-grid">
                         {{range .Results}}
-                        <div class="game-card clickable" data-game='{{convertToJSON .}}'>
+                        <div class="game-card">
                             <img src="{{.background_image}}" alt="{{.name}}">
                             <h3>{{.name}}</h3>
                             <p>Note : {{.rating}}/5</p>
@@ -50,22 +51,11 @@
                         </div>
                         {{end}}
                     </div>
-                    <div id="gameModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div id="gameDetails">
-                            </div>
-                        </div>
-                    </div>
             {{else}}
                     <p>Aucun jeu trouvé pour cette recherche.</p>
                 {{end}}
             {{end}}
         </div>
     </main>
-
-    <script>
-        {{.CollectionJS}}
-    </script>
 </body>
 </html>

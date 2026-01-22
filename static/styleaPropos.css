@@ -1,106 +1,152 @@
-/* toute la page a reutilisé a chaque fois */
+/* Réinitialisation globale des styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  margin: 0; /* Pas de marge externe */
+  padding: 0; /* Pas de marge interne */
+  box-sizing: border-box; /* Inclut padding dans largeur totale */
+  font-family: "Helvetica Neue", Arial, sans-serif; /* Police de caractères */
 }
 
+/* Style général du body avec dégradé de fond */
 body {
-  color: white;
-  font-family: Arial, sans-serif;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-  padding: 20px 20px 40px 20px;
-  padding-top: 88px;
-  background: linear-gradient(135deg, #171A21 0%, #1B2838 100%);
-  min-height: 100vh;
+  color: white; /* Texte blanc */
+  font-family: Arial, sans-serif; /* Police de caractères */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Ombre portée du texte */
+  padding: 20px 20px 40px 20px; /* Espace intérieur haut droite bas gauche */
+  padding-top: 88px; /* Espace supplémentaire en haut */
+  background: linear-gradient(135deg, #171A21 0%, #1B2838 100%); /* Dégradé de fond */
+  min-height: 100vh; /* Hauteur minimale plein écran */
 }
 
+/* Contenu principal avec hauteur minimale */
 main {
-    position: relative;
-    min-height: 400px;
+    position: relative; /* Positionnement relatif pour enfants absolus */
+    min-height: 400px; /* Hauteur minimale */
 }
 
+/* Barre de navigation fixée en haut */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 50px;
-  font-size: 13px;
-  letter-spacing: 0.3px;
-  height: 60px;
-  background-color: transparent;
-  border-bottom: 1px solid transparent;
-  transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-  z-index: 10;
+  position: fixed; /* Reste en place au scroll */
+  top: 0; /* Collé en haut */
+  left: 0; /* Collé à gauche */
+  width: 100%; /* Largeur complète */
+  display: flex; /* Disposition flexible */
+  justify-content: space-between; /* Espace entre gauche et droite */
+  align-items: center; /* Alignement vertical centré */
+  padding: 18px 50px; /* Espace intérieur */
+  font-size: 13px; /* Taille du texte */
+  letter-spacing: 0.3px; /* Espacement entre les lettres */
+  height: 60px; /* Hauteur fixe */
+  background-color: transparent; /* Fond transparent */
+  border-bottom: 1px solid transparent; /* Bordure basse invisible */
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease; /* Animations */
+  z-index: 10; /* Au-dessus des autres éléments */
 }
 
+/* Effet hover sur la navbar */
 .navbar:hover {
-  background-color: #2A475E;
-  border-color: #66C0F4;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  background-color: #2A475E; /* Fond bleu au survol */
+  border-color: #66C0F4; /* Bordure bleue au survol */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08); /* Ombre au survol */
 }
 
-.navbar:hover {
-  background-color: #2A475E;
-  border-color: #66C0F4;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
-
+/* Conteneur des liens de navigation */
 .navlinks {
-  display: flex;
-  gap: 18px;
-  align-items: center;
+  display: flex; /* Disposition flexible */
+  gap: 18px; /* Espace entre les liens */
+  align-items: center; /* Alignement vertical centré */
 }
+
+/* Style des liens de navigation */
 .navlinks a {
-  color: #dfeff6;
-  text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 4px;
-  transition: background 0.2s;
+  color: #dfeff6; /* Couleur bleu très clair */
+  text-decoration: none; /* Pas de soulignement */
+  padding: 8px 10px; /* Espace intérieur */
+  border-radius: 4px; /* Coins légèrement arrondis */
+  transition: background 0.2s; /* Animation du fond */
 }
 
+/* Sections gauche et droite de la navbar */
 .left, .right {
-  display: flex;
-  align-items: center;
-  gap: 22px;
+  display: flex; /* Disposition flexible */
+  align-items: center; /* Alignement vertical centré */
+  gap: 22px; /* Espace entre les éléments */
 }
 
+/* Logo avec effet d'agrandissement */
 .logo {
-  width: 200px;
-  position: relative;
-  left: 20px;
-  top: 0px;
-  font-weight: 600;
-  letter-spacing: 4px;
-  font-size: 22px;
-  cursor: pointer;
-  transition: transform 0.3s;
+  width: 200px; /* Largeur du logo */
+  position: relative; /* Position relative */
+  left: 20px; /* Décalage vers la droite */
+  top: 0px; /* Pas de décalage vertical */
+  font-weight: 600; /* Texte semi-gras */
+  letter-spacing: 4px; /* Grand espacement des lettres */
+  font-size: 22px; /* Taille du texte */
+  cursor: pointer; /* Curseur en forme de main */
+  transition: transform 0.3s; /* Animation de transformation */
 }
 
+/* Effet hover sur le logo */
 .logo:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* Agrandissement de 5% au survol */
 }
-/* fin de la page */
-/*aProposTexte*/
+
+/* Titre de la page À Propos centré */
 .text {
-    text-align: center;
-    margin-bottom: 50px;
-    font-size: 36px;
+    text-align: center; /* Texte centré */
+    margin-bottom: 50px; /* Espace en bas */
+    font-size: 36px; /* Grande taille de texte */
 }
-/*frondend*/
-.carre {
-    width: 1800px;
-    height: 400px;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    flex-direction: column;  /* Empile les éléments verticalement */
-    gap: 20px;  /* Espacement entre les éléments */
+
+/* Grand conteneur - contient les trois boîtes côte à côte */
+.groscarre {
+    display: flex; /* Disposition flexible */
+    justify-content: space-around; /* Espace autour des boîtes */
+    align-items: flex-start; /* Alignement en haut */
+    gap: 20px; /* Espace entre les boîtes */
+    margin: 0 auto; /* Centrage horizontal */
+    width: 100%; /* Largeur complète */
+    flex-wrap: wrap; /* Permet le retour à la ligne */
+    background-color: rgba(0, 0, 0, 0.596); /* Fond vert semi-transparent */
+}
+
+/* Boîte 1 - alignée à gauche (Frontend) */
+.carre1 {
+    width: 300px; /* Largeur de la boîte */
+    height: 300px; /* Hauteur de la boîte */
+    background-color: #171A21; /* Fond  */
+    display: flex; /* Disposition flexible */
+    justify-content: center; /* Centrage horizontal du contenu */
+    align-items: center; /* Centrage vertical du contenu */
+    flex-direction: column; /* Empilement vertical */
+    gap: 20px; /* Espace entre les éléments */
+    padding: 20px; /* Espace intérieur */
+    border-radius: 8px; /* Coins arrondis */
+}
+
+/* Boîte 2 - au centre (Backend) */
+.carre2 {
+    width: 300px; /* Largeur de la boîte */
+    height: 300px; /* Hauteur de la boîte */
+    background-color: #171A21; /* Fond */
+    display: flex; /* Disposition flexible */
+    justify-content: center; /* Centrage horizontal du contenu */
+    align-items: center; /* Centrage vertical du contenu */
+    flex-direction: column; /* Empilement vertical */
+    gap: 20px; /* Espace entre les éléments */
+    padding: 20px; /* Espace intérieur */
+    border-radius: 8px; /* Coins arrondis */
+}
+
+/* Boîte 3 - alignée à droite (Collaboration) */
+.carre3 {
+    width: 300px; /* Largeur de la boîte */
+    height: 300px; /* Hauteur de la boîte */
+    background-color: #171A21; /* Fond */
+    display: flex; /* Disposition flexible */
+    justify-content: center; /* Centrage horizontal du contenu */
+    align-items: center; /* Centrage vertical du contenu */
+    flex-direction: column; /* Empilement vertical */
+    gap: 20px; /* Espace entre les éléments */
+    padding: 20px; /* Espace intérieur */
+    border-radius: 8px; /* Coins arrondis */
 }

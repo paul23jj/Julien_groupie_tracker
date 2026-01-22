@@ -1,179 +1,192 @@
+/* Grille de jeux - affichage responsive en colonnes automatiques */
 .games-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin-top: 18px;
-  width: 75%;
+  display: grid; /* Active le système de grille */
+  grid-template-columns: repeat(4, minmax(220px, 1fr)); /* 4 colonnes fixes */
+  gap: 16px; /* Espace entre les cartes */
+  margin: 18px auto 0; /* Centrage horizontal */
+  width: 90%; /* Largeur adaptée */
+  justify-items: center; /* Centre les items dans la grille */
 }
 
+/* Section des filtres - reste collée en haut lors du scroll */
 .filters-section {
-  position: sticky;
-  top: 20px;
-  height: fit-content; /* pour que la box se colle au texte en gros */
-  background: rgba(38, 61, 89, 0.6);
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 25px;
-  border: 1px solid rgba(102, 192, 244, 0.2);
-  width: 25%;
+  position: sticky; /* Reste visible au scroll */
+  top: 20px; /* Distance du haut d'écran */
+  height: fit-content; /* Hauteur adaptée au contenu */
+  background: rgba(38, 61, 89, 0.6); /* Fond bleu semi-transparent */
+  border-radius: 8px; /* Coins arrondis */
+  padding: 20px; /* Espace intérieur */
+  margin-bottom: 25px; /* Espace en bas */
+  border: 1px solid rgba(102, 192, 244, 0.2); /* Bordure bleue légère */
+  width: 25%; /* Largeur de la section */
 }
 
+/* En-tête de la section filtres avec titre et bouton réinitialiser */
 .filters-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+  display: flex; /* Disposition flexible */
+  justify-content: space-between; /* Espace entre les éléments */
+  align-items: center; /* Alignement vertical centré */
+  margin-bottom: 15px; /* Espace en bas */
 }
 
+/* Titre de la section filtres */
 .filters-header h2 {
-  color: #66c0f4;
-  margin: 0;
-  font-size: 18px;
+  color: #66c0f4; /* Couleur bleu clair */
+  margin: 0; /* Pas de marge */
+  font-size: 18px; /* Taille du texte */
 }
 
+/* Bouton pour réinitialiser tous les filtres */
 .reset-btn {
-  background: rgba(255, 107, 107, 0.8);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s ease;
+  background: rgba(255, 107, 107, 0.8); /* Fond rouge semi-transparent */
+  color: white; /* Texte blanc */
+  border: none; /* Pas de bordure */
+  padding: 8px 16px; /* Espace intérieur haut/bas gauche/droite */
+  border-radius: 6px; /* Coins arrondis */
+  cursor: pointer; /* Curseur en forme de main */
+  font-size: 14px; /* Taille du texte */
+  transition: background 0.2s ease; /* Animation du changement de fond */
 }
 
+/* Effet hover du bouton réinitialiser */
 .reset-btn:hover {
-  background: rgba(255, 107, 107, 1);
+  background: rgba(255, 107, 107, 1); /* Fond rouge opaque au survol */
 }
 
+/* Conteneur des options de filtres - permet le retour à la ligne */
 .filters-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+  display: flex; /* Disposition flexible */
+  flex-wrap: wrap; /* Retour à la ligne automatique */
+  gap: 15px; /* Espace entre les options */
 }
 
+/* Option de filtre individuelle avec checkbox */
 .filter-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  color: #cfeaf8;
-  user-select: none;
+  display: flex; /* Disposition flexible */
+  align-items: center; /* Alignement vertical centré */
+  gap: 8px; /* Espace entre checkbox et texte */
+  cursor: pointer; /* Curseur en forme de main */
+  color: #cfeaf8; /* Couleur bleu clair */
+  user-select: none; /* Empêche la sélection du texte */
 }
 
+/* Style des checkboxes des filtres */
 .filter-option input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  accent-color: #66c0f4;
+  width: 18px; /* Largeur de la checkbox */
+  height: 18px; /* Hauteur de la checkbox */
+  cursor: pointer; /* Curseur en forme de main */
+  accent-color: #66c0f4; /* Couleur bleue quand cochée */
 }
 
+/* Effet hover sur les options de filtre */
 .filter-option:hover {
-  color: #66c0f4;
+  color: #66c0f4; /* Texte bleu au survol */
 }
 
+/* Carte de jeu individuelle */
 .game-card {
-  background: #172027;
-  border-radius: 6px;
-  overflow: hidden;
-  min-height: 160px;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #172027; /* Fond gris foncé */
+  border-radius: 6px; /* Coins arrondis */
+  overflow: hidden; /* Cache le débordement */
+  min-height: 160px; /* Hauteur minimale */
+  display: flex; /* Disposition flexible */
+  flex-direction: column; /* Empilement vertical */
 }
 
-.game-card.clickable {
-  cursor: pointer;
-}
-
-.game-card.clickable:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(102, 192, 244, 0.3);
-  background: #1c2834;
-}
-
+/* Images des jeux - taille et ajustement uniformes */
 .game-card img,
 .game-image {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  display: block;
+  width: 100%; /* Largeur complète */
+  height: 120px; /* Hauteur fixe */
+  object-fit: cover; /* Remplit l'espace sans déformer */
+  display: block; /* Affichage en bloc */
 }
 
+/* Titre du jeu dans la carte */
 .game-card h3 {
-  font-size: 16px;
-  color: #e6f7ff;
-  margin: 10px;
+  font-size: 16px; /* Taille du texte */
+  color: #e6f7ff; /* Couleur bleu très clair */
+  margin: 10px; /* Marge autour */
 }
 
+/* Paragraphes d'informations du jeu (note, date) */
 .game-card p { 
-  margin: 0 10px 10px 10px;
-  color: #cfeaf8;
-  font-size: 14px;
+  margin: 0 10px 10px 10px; /* Marge haut droite bas gauche */
+  color: #cfeaf8; /* Couleur bleu clair */
+  font-size: 14px; /* Taille du texte */
 }
 
+/* Barre de pagination en bas de page */
 .pagination {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 20px;
-  align-items: center;
+  display: flex; /* Disposition flexible */
+  gap: 12px; /* Espace entre les éléments */
+  justify-content: center; /* Centrage horizontal */
+  margin-top: 20px; /* Espace en haut */
+  align-items: center; /* Alignement vertical centré */
 }
 
+/* Liens de pagination (précédent/suivant) */
 .page-link {
-  color: #66c0f4;
-  text-decoration: none;
-  padding: 8px 12px;
-  background: rgba(255,255,255,0.03);
-  border-radius: 6px;
-  transition: background 0.15s ease;
+  color: #66c0f4; /* Couleur bleu clair */
+  text-decoration: none; /* Pas de soulignement */
+  padding: 8px 12px; /* Espace intérieur */
+  background: rgba(255,255,255,0.03); /* Fond blanc très léger */
+  border-radius: 6px; /* Coins arrondis */
+  transition: background 0.15s ease; /* Animation du changement de fond */
 }
 
+/* Effet hover sur les liens de pagination */
 .page-link:hover {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.06); /* Fond plus visible au survol */
 }
 
+/* Message d'erreur */
 .error {
-  color: #ff7b7b;
-  text-align: center;
-  margin: 12px 0;
+  color: #ff7b7b; /* Couleur rouge clair */
+  text-align: center; /* Texte centré */
+  margin: 12px 0; /* Marge haut et bas */
 }
 
+/* Modal - popup en plein écran pour les détails du jeu */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  display: none; /* Caché par défaut */
+  position: fixed; /* Position fixe sur l'écran */
+  z-index: 1000; /* Au-dessus de tout */
+  left: 0; /* Aligné à gauche */
+  top: 0; /* Aligné en haut */
+  width: 100%; /* Largeur complète */
+  height: 100%; /* Hauteur complète */
+  background-color: rgba(0, 0, 0, 0.8); /* Fond noir semi-transparent */
 }
 
+/* Contenu du modal - boîte centrée avec les détails */
 .modal-content {
-  background-color: #172027;
-  margin: 10% auto;
-  padding: 20px;
-  border: 1px solid #66c0f4;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 700px;
-  color: #e6f7ff;
+  background-color: #172027; /* Fond gris foncé */
+  margin: 10% auto; /* Centré avec espace en haut */
+  padding: 20px; /* Espace intérieur */
+  border: 1px solid #66c0f4; /* Bordure bleue */
+  border-radius: 8px; /* Coins arrondis */
+  width: 80%; /* Largeur de 80% */
+  max-width: 700px; /* Largeur maximale */
+  color: #e6f7ff; /* Texte bleu très clair */
 }
 
+/* Bouton de fermeture du modal (X) */
 .close {
-  color: #66c0f4;
-  float: right;
-  font-size: 28px;
-  cursor: pointer;
+  color: #66c0f4; /* Couleur bleue */
+  float: right; /* Aligné à droite */
+  font-size: 28px; /* Grande taille */
+  cursor: pointer; /* Curseur en forme de main */
 }
 
+/* Effet hover sur le bouton de fermeture */
 .close:hover {
-  color: #ffffff;
+  color: #ffffff; /* Devient blanc au survol */
 }
 
+/* Conteneur principal - affiche filtres et grille côte à côte */
 .layout-wrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+  display: flex; /* Disposition flexible */
+  flex-direction: row; /* Disposition horizontale */
+  gap: 20px; /* Espace entre les sections */
 }
