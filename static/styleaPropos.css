@@ -164,3 +164,84 @@ main {
     line-height: 1.6; /* Espacement entre les lignes */
     text-align: center; /* Texte centré */
 }
+
+/* Section des fonctionnalités */
+.fonctionnalites {
+    background-color: rgba(0, 0, 0, 0.596); /* Fond semi-transparent */
+    padding: 40px; /* Espace intérieur */
+    margin-top: 40px; /* Espace au-dessus */
+    border-radius: 8px; /* Coins arrondis */
+    font-size: 18px; /* Texte plus gros */
+    line-height: 1.6; /* Espacement entre les lignes */
+}
+
+/* Listes à puces */
+.fonctionnalites ul {
+    margin-left: 20px; /* Indentation */
+    margin-top: 15px; /* Espace au-dessus */
+}
+
+/* Éléments de liste */
+.fonctionnalites li {
+    margin-bottom: 10px; /* Espace entre les items */
+    color: #cfeaf8; /* Couleur bleu clair */
+}
+
+/* Section des difficultés */
+.difficultes {
+    background-color: rgba(0, 0, 0, 0.596); /* Fond semi-transparent */
+    padding: 40px; /* Espace intérieur */
+    margin-top: 40px; /* Espace au-dessus */
+    border-radius: 8px; /* Coins arrondis */
+    font-size: 18px; /* Texte plus gros */
+    line-height: 1.6; /* Espacement entre les lignes */
+}
+
+/* Listes dans la section difficultés */
+.difficultes ul {
+    margin-left: 20px; /* Indentation */
+    margin-top: 15px; /* Espace au-dessus */
+}
+
+/* Éléments de liste dans difficultés */
+.difficultes li {
+    margin-bottom: 10px; /* Espace entre les items */
+    color: #cfeaf8; /* Couleur bleu clair */
+}
+
+/* Section bilan */
+.bilan {
+    background-color: rgba(0, 0, 0, 0.596); /* Fond semi-transparent */
+    padding: 40px; /* Espace intérieur */
+    margin-top: 40px; /* Espace au-dessus */
+    border-radius: 8px; /* Coins arrondis */
+    font-size: 18px; /* Texte plus gros */
+    line-height: 1.6; /* Espacement entre les lignes */
+}
+
+/* Section contact */
+.contact {
+    background-color: rgba(0, 0, 0, 0.596); /* Fond semi-transparent */
+    padding: 40px; /* Espace intérieur */
+    margin-top: 40px; /* Espace au-dessus */
+    margin-bottom: 40px; /* Espace au-dessous */
+    border-radius: 8px; /* Coins arrondis */
+    font-size: 18px; /* Texte plus gros */
+    line-height: 1.6; /* Espacement entre les lignes */
+    text-align: center; /* Texte centré */
+}
+
+/* Liens dans la section contact */
+.contact a {
+    color: #66c0f4; /* Couleur bleu clair */
+    text-decoration: none; /* Pas de soulignement */
+    display: block; /* Sur une nouvelle ligne */
+    margin-top: 10px; /* Espace au-dessus */
+    transition: color 0.2s; /* Animation de couleur */
+}
+
+/* Effet hover sur les liens */
+.contact a:hover {
+    color: #ffffff; /* Blanc au survol */
+    text-decoration: underline; /* Soulignement au survol */
+}
