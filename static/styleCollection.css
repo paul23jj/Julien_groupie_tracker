@@ -1,24 +1,26 @@
 /* Grille de jeux - affichage responsive en colonnes automatiques */
 .games-grid {
   display: grid; /* Active le système de grille */
-  grid-template-columns: repeat(4, minmax(220px, 1fr)); /* 4 colonnes fixes */
-  gap: 16px; /* Espace entre les cartes */
-  margin: 18px auto 0; /* Centrage horizontal */
-  width: 90%; /* Largeur adaptée */
-  justify-items: center; /* Centre les items dans la grille */
+  grid-template-columns: repeat(4, 1fr); /* 4 colonnes égales */
+  gap: 40px; /* Espace entre les cartes augmenté */
+  margin: 0; /* Pas de marge */
+  width: 100%; /* Largeur complète */
+  padding: 20px; /* Espace intérieur */
 }
 
 /* Section des filtres - reste collée en haut lors du scroll */
 .filters-section {
   position: sticky; /* Reste visible au scroll */
-  top: 20px; /* Distance du haut d'écran */
+  top: 80px; /* Distance du haut d'écran */
   height: fit-content; /* Hauteur adaptée au contenu */
   background: rgba(38, 61, 89, 0.6); /* Fond bleu semi-transparent */
   border-radius: 8px; /* Coins arrondis */
   padding: 20px; /* Espace intérieur */
   margin-bottom: 25px; /* Espace en bas */
+  margin-left: 20px; /* Marge à gauche pour décalage */
   border: 1px solid rgba(102, 192, 244, 0.2); /* Bordure bleue légère */
-  width: 25%; /* Largeur de la section */
+  min-width: 260px; /* Largeur minimale */
+  max-width: 280px; /* Largeur maximale */
 }
 
 /* En-tête de la section filtres avec titre et bouton réinitialiser */
@@ -90,9 +92,25 @@
   overflow: hidden; /* Cache le débordement */
   display: flex; /* Disposition flexible */
   flex-direction: column; /* Empilement vertical */
-  width: 280px; /* Largeur fixe pour uniformité */
+  width: 100%; /* Largeur complète de la cellule */
   height: 380px; /* Hauteur fixe pour uniformité */
   position: relative; /* Pour le bouton favori */
+  cursor: pointer; /* Curseur en forme de main */
+  transition: all 0.3s ease; /* Animation fluide */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Ombre de base */
+}
+
+/* Effet hover sur la carte - élévation et ombre */
+.game-card:hover {
+  transform: translateY(-8px); /* Élévation de la carte */
+  box-shadow: 0 8px 24px rgba(102, 192, 244, 0.4); /* Ombre bleue plus prononcée */
+  border: 1px solid rgba(102, 192, 244, 0.5); /* Bordure bleue au survol */
+}
+
+/* Animation active au clic */
+.game-card:active {
+  transform: translateY(-4px); /* Légère descente au clic */
+  box-shadow: 0 4px 16px rgba(102, 192, 244, 0.3); /* Ombre réduite */
 }
 
 /* Images des jeux - taille et ajustement uniformes */
@@ -190,25 +208,29 @@
 .layout-wrapper {
   display: flex; /* Disposition flexible */
   flex-direction: row; /* Disposition horizontale */
-  gap: 20px; /* Espace entre les sections */
+  gap: 40px; /* Espace entre les sections augmenté */
+  align-items: flex-start; /* Alignement en haut */
+  padding-left: 0; /* Pas de padding à gauche */
+  margin-left: 0; /* Pas de marge à gauche */
 }
 
-/* Mise en page spécifique à la collection : on redonne toute la place aux cartes
-   pendant que la colonne de filtres garde une largeur fixe. */
+/* Mise en page spécifique à la collection : filtres à gauche, cartes à droite */
 .collection-page .layout-wrapper {
   align-items: flex-start;
+  padding-left: 0; /* Colle à gauche */
 }
 
 .collection-page .filters-section {
-  flex: 0 0 260px;
-  width: auto;
+  order: 1; /* Filtres en premier (à gauche) */
+  flex: 0 0 280px; /* Largeur fixe */
+  margin-left: 0; /* Collé complètement à gauche */
 }
 
 .collection-page .games-grid {
-  flex: 1;
-  width: 100%;
-  margin: 18px 0 0; /* supprime le centrage forcé */
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  order: 2; /* Grille en second (à droite) */
+  flex: 1; /* Prend l'espace restant */
+  width: auto; /* Largeur automatique */
+  margin-right: 20px; /* Marge à droite */
 }
 
 /* ============ BOUTONS FAVORIS ============ */
