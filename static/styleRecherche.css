@@ -98,15 +98,46 @@ main {
     margin-bottom: 0px;  /*espace en dessous de la barre*/
 }
 
+.barre-recherche form {
+    display: flex;
+    align-items: center;
+    gap: 0; /* collé à la barre */
+}
+
 .barre-recherche input[type="text"] {
     width: 500px;      /*taille de la barre*/   
-    height: 40px;      /*taille de la barre*/    
+    height: 48px;      /* un peu plus haut pour aligner */    
     background-color: #2A475E;  /*couleur de la barre*/
     border: 1px solid #000000;  /*bordure de la barre*/
     border-radius: 3px;              /*bordure arrondie*/
     padding-left: 15px;     /*espace à l'intérieur de la barre*/  
     font-size: 16px;        /*taille du texte*/
 }
+
+.search-btn {
+    width: 48px;       /* agrandi */
+    height: 48px;      /* agrandi */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.2s;
+}
+
+.search-btn:hover img {
+    transform: scale(1.05);
+}
+
 /* fin de la barre de recherche */
 
 /* la loupe */
