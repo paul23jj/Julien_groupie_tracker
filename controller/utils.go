@@ -117,6 +117,21 @@ func hasMatchingGenre(game map[string]interface{}, selectedGenres []string) bool
 	return false
 }
 
+var FavorisStore = make(map[string]map[string]interface{})
+
+func AddFavoris(gamesID string, gameData map[string]interface{}) {
+	favorisStore[gameID] = gameData
+	fmt.Println("Ajouté aux favoris :", gameID)
+}
+
+func Favoris() PageData {
+	return PageData{
+		"Title":        "Favoris",
+		"Games":        GetFavoris(),
+		"CollectionJS": GetCollectionJS(),
+	}
+}
+
 // GetCollectionJS retourne le code JavaScript pour la page Collection
 func GetCollectionJS() template.JS {
 	jsCode := `const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
