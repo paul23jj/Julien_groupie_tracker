@@ -193,6 +193,24 @@
   gap: 20px; /* Espace entre les sections */
 }
 
+/* Mise en page spécifique à la collection : on redonne toute la place aux cartes
+   pendant que la colonne de filtres garde une largeur fixe. */
+.collection-page .layout-wrapper {
+  align-items: flex-start;
+}
+
+.collection-page .filters-section {
+  flex: 0 0 260px;
+  width: auto;
+}
+
+.collection-page .games-grid {
+  flex: 1;
+  width: 100%;
+  margin: 18px 0 0; /* supprime le centrage forcé */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
 /* ============ BOUTONS FAVORIS ============ */
 
 .game-card {
