@@ -208,7 +208,7 @@
 .layout-wrapper {
   display: flex; /* Disposition flexible */
   flex-direction: row; /* Disposition horizontale */
-  gap: 80px; /* Espace entre les sections augmenté */
+  gap: 100px; /* Espace entre les sections augmenté */
   align-items: flex-start; /* Alignement en haut */
   padding-left: 0; /* Pas de padding à gauche */
   margin-left: 0; /* Pas de marge à gauche */
