@@ -131,8 +131,14 @@ main {
     border-radius: 60px;
     object-fit: cover;
 }
+
+/* Masquer la loupe quand il y a des résultats */
+.loupe.hidden {
+    display: none;
+}
 /* fin de la loupe */
 /* ligne sous le header */
 .ligne {
     margin-top: 0px;
 }
+/* fin de la ligne sous le header */

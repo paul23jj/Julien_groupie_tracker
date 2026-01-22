@@ -111,19 +111,6 @@ func rechercheHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ressourcesHandler(w http.ResponseWriter, r *http.Request) {
-	data := controller.Ressources()
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	tmpl, err := template.ParseFiles("template/ressources.html")
-	if err != nil {
-		http.Error(w, "template parse error", http.StatusInternalServerError)
-		return
-	}
-	if err := tmpl.Execute(w, data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
 func traitmentSearchHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
