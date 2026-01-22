@@ -49,7 +49,7 @@ func CollectionWithGenres(page int, genres []string) PageData {
 	}
 	q := req.URL.Query()
 	q.Add("key", apiKey)
-	q.Add("page_size", "9")
+	q.Add("page_size", "12")
 	q.Add("page", strconv.Itoa(page))
 	req.URL.RawQuery = q.Encode()
 
