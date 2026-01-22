@@ -98,6 +98,12 @@ main {
     margin-bottom: 0px;  /*espace en dessous de la barre*/
 }
 
+.barre-recherche form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .barre-recherche input[type="text"] {
     width: 500px;      /*taille de la barre*/   
     height: 40px;      /*taille de la barre*/    
@@ -107,6 +113,27 @@ main {
     padding-left: 15px;     /*espace à l'intérieur de la barre*/  
     font-size: 16px;        /*taille du texte*/
 }
+
+.search-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.2s;
+}
+
+.search-btn:hover img {
+    transform: scale(1.1);
+}
+
 /* fin de la barre de recherche */
 
 /* la loupe */

@@ -28,8 +28,9 @@
         <div class="barre-recherche">
              <form action="/traitment/search" method="post">
                 <input type="text" name="search" placeholder="recherche">
-                 <button type="submit">Rechercher</button>
-                 <button type="submit">Réinitialiser</button>
+                 <button type="submit" class="search-btn">
+                    <img src="/icons/recheche.steam.png" alt="Rechercher">
+                 </button>
             </form>
         </div>
          <div class="loupe {{if .Query}}hidden{{end}}">
