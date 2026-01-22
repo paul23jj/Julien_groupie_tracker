@@ -107,6 +107,7 @@ main {
     width: 100%; /* Largeur complète */
     flex-wrap: wrap; /* Permet le retour à la ligne */
     background-color: rgba(0, 0, 0, 0.596); /* Fond vert semi-transparent */
+    padding: 40px; /* Espace intérieur tout autour */
 }
 
 /* Boîte 1 - alignée à gauche (Frontend) */
