@@ -1,175 +1,182 @@
-/* toute la page a reutilisé a chaque fois */
+/* Réinitialisation globale des marges et paddings */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  margin: 0; /* Pas de marge externe */
+  padding: 0; /* Pas de marge interne */
+  box-sizing: border-box; /* Inclut padding dans largeur totale */
+  font-family: "Helvetica Neue", Arial, sans-serif; /* Police de caractères */
 }
 
+/* Style général du body avec dégradé de fond */
 body {
-  color: white;
-  font-family: Arial, sans-serif;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-  padding: 20px 20px 40px 20px;
-  padding-top: 88px;
-  background: linear-gradient(135deg, #171A21 0%, #1B2838 100%);
-  min-height: 100vh;
+  color: white; /* Texte blanc */
+  font-family: Arial, sans-serif; /* Police de caractères */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Ombre portée du texte */
+  padding: 20px 20px 40px 20px; /* Espace intérieur haut droite bas gauche */
+  padding-top: 88px; /* Espace supplémentaire en haut */
+  background: linear-gradient(135deg, #171A21 0%, #1B2838 100%); /* Dégradé de fond */
+  min-height: 100vh; /* Hauteur minimale plein écran */
 }
 
+/* En-tête de page avec espacement */
 header {
-    margin-top: 60px; 
-    margin-bottom: 30px;
+    margin-top: 60px; /* Espace en haut */
+    margin-bottom: 30px; /* Espace en bas */
 }
 
+/* Contenu principal avec hauteur minimale */
 main {
-    position: relative;
-    min-height: 400px;
+    position: relative; /* Positionnement relatif pour enfants absolus */
+    min-height: 400px; /* Hauteur minimale */
 }
 
+/* Barre de navigation fixée en haut de page */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 50px;
-  font-size: 13px;
-  letter-spacing: 0.3px;
-  height: 60px;
-  background-color: transparent;
-  border-bottom: 1px solid transparent;
-  transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-  z-index: 10;
+  position: fixed; /* Reste en place au scroll */
+  top: 0; /* Collé en haut */
+  left: 0; /* Collé à gauche */
+  width: 100%; /* Largeur complète */
+  display: flex; /* Disposition flexible */
+  justify-content: space-between; /* Espace entre gauche et droite */
+  align-items: center; /* Alignement vertical centré */
+  padding: 18px 50px; /* Espace intérieur */
+  font-size: 13px; /* Taille du texte */
+  letter-spacing: 0.3px; /* Espacement entre les lettres */
+  height: 60px; /* Hauteur fixe */
+  background-color: transparent; /* Fond transparent */
+  border-bottom: 1px solid transparent; /* Bordure basse invisible */
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease; /* Animations */
+  z-index: 10; /* Au-dessus des autres éléments */
 }
 
+/* Effet hover sur la navbar - fond coloré */
 .navbar:hover {
-  background-color: #2A475E;
-  border-color: #66C0F4;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  background-color: #2A475E; /* Fond bleu au survol */
+  border-color: #66C0F4; /* Bordure bleue au survol */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08); /* Ombre au survol */
 }
 
-.navbar:hover {
-  background-color: #2A475E;
-  border-color: #66C0F4;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
-
+/* Conteneur des liens de navigation */
 .navlinks {
-  display: flex;
-  gap: 18px;
-  align-items: center;
+  display: flex; /* Disposition flexible */
+  gap: 18px; /* Espace entre les liens */
+  align-items: center; /* Alignement vertical centré */
 }
+
+/* Style des liens de navigation */
 .navlinks a {
-  color: #dfeff6;
-  text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 4px;
-  transition: background 0.2s;
+  color: #dfeff6; /* Couleur bleu très clair */
+  text-decoration: none; /* Pas de soulignement */
+  padding: 8px 10px; /* Espace intérieur */
+  border-radius: 4px; /* Coins légèrement arrondis */
+  transition: background 0.2s; /* Animation du fond */
 }
 
+/* Sections gauche et droite de la navbar */
 .left, .right {
-  display: flex;
-  align-items: center;
-  gap: 22px;
+  display: flex; /* Disposition flexible */
+  align-items: center; /* Alignement vertical centré */
+  gap: 22px; /* Espace entre les éléments */
 }
 
+/* Logo avec effet d'agrandissement au survol */
 .logo {
-  width: 200px;
-  position: relative;
-  left: -30px;
-  top: 0px;
-  font-weight: 600;
-  letter-spacing: 4px;
-  font-size: 22px;
-  cursor: pointer;
-  transition: transform 0.3s;
+  width: 200px; /* Largeur du logo */
+  position: relative; /* Position relative */
+  left: -30px; /* Décalage vers la gauche */
+  top: 0px; /* Pas de décalage vertical */
+  font-weight: 600; /* Texte semi-gras */
+  letter-spacing: 4px; /* Grand espacement des lettres */
+  font-size: 22px; /* Taille du texte */
+  cursor: pointer; /* Curseur en forme de main */
+  transition: transform 0.3s; /* Animation de transformation */
 }
 
+/* Effet hover sur le logo */
 .logo:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* Agrandissement de 5% au survol */
 }
-/* fin de la page */
 
-/* la barre recherche */
+/* Conteneur de la barre de recherche */
 .barre-recherche {
-    margin-top: 10px;   /*espace au dessus de la barre*/
-    margin-bottom: 0px;  /*espace en dessous de la barre*/
+    margin-top: 10px; /* Espace en haut */
+    margin-bottom: 0px; /* Pas d'espace en bas */
 }
 
+/* Formulaire de recherche - input et bouton collés */
 .barre-recherche form {
-    display: flex;
-    align-items: center;
-    gap: 0; /* collé à la barre */
+    display: flex; /* Disposition flexible */
+    align-items: center; /* Alignement vertical centré */
+    gap: 0; /* Pas d'espace entre éléments */
 }
 
+/* Champ de saisie de recherche */
 .barre-recherche input[type="text"] {
-    width: 500px;      /*taille de la barre*/   
-    height: 48px;      /* un peu plus haut pour aligner */    
-    background-color: #2A475E;  /*couleur de la barre*/
-    border: 1px solid #000000;  /*bordure de la barre*/
-    border-radius: 3px;              /*bordure arrondie*/
-    padding-left: 15px;     /*espace à l'intérieur de la barre*/  
-    font-size: 16px;        /*taille du texte*/
+    width: 500px; /* Largeur du champ */
+    height: 48px; /* Hauteur du champ */
+    background-color: #2A475E; /* Fond bleu foncé */
+    border: 1px solid #000000; /* Bordure noire */
+    border-radius: 3px; /* Coins légèrement arrondis */
+    padding-left: 15px; /* Espace intérieur à gauche */
+    font-size: 16px; /* Taille du texte */
 }
 
+/* Bouton de recherche avec icône */
 .search-btn {
-    width: 48px;       /* agrandi */
-    height: 48px;      /* agrandi */
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 48px; /* Largeur du bouton */
+    height: 48px; /* Hauteur du bouton */
+    background: transparent; /* Fond transparent */
+    border: none; /* Pas de bordure */
+    cursor: pointer; /* Curseur en forme de main */
+    padding: 6px; /* Espace intérieur */
+    display: flex; /* Disposition flexible */
+    align-items: center; /* Alignement vertical centré */
+    justify-content: center; /* Centrage horizontal */
 }
 
+/* Image du bouton de recherche */
 .search-btn img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    transition: transform 0.2s;
+    width: 100%; /* Largeur complète du conteneur */
+    height: 100%; /* Hauteur complète du conteneur */
+    object-fit: contain; /* Garde les proportions de l'image */
+    display: block; /* Affichage en bloc */
+    transition: transform 0.2s; /* Animation de transformation */
 }
 
+/* Effet hover sur le bouton de recherche */
 .search-btn:hover img {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Agrandissement de 5% au survol */
 }
 
-/* fin de la barre de recherche */
-
-/* la loupe */
+/* Icône loupe affichée au centre de la page */
 .loupe {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
+    position: absolute; /* Position absolue */
+    top: 50%; /* Centre vertical */
+    left: 50%; /* Centre horizontal */
+    transform: translate(-50%, -50%); /* Centrage exact */
+    width: 60px; /* Largeur du conteneur */
+    height: 60px; /* Hauteur du conteneur */
+    border-radius: 50%; /* Forme circulaire */
+    background-color: rgba(255, 255, 255, 0.1); /* Fond blanc très léger */
+    display: flex; /* Disposition flexible */
+    align-items: center; /* Alignement vertical centré */
+    justify-content: center; /* Centrage horizontal */
+    pointer-events: none; /* Ne bloque pas les clics */
 }
 
+/* Image de la loupe */
 .loupe img {
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
-    object-fit: cover;
+    width: 120px; /* Largeur de l'image */
+    height: 120px; /* Hauteur de l'image */
+    border-radius: 60px; /* Forme circulaire */
+    object-fit: cover; /* Remplit l'espace */
 }
 
-/* Masquer la loupe quand il y a des résultats */
+/* Masque la loupe quand des résultats sont affichés */
 .loupe.hidden {
-    display: none;
+    display: none; /* Cache complètement l'élément */
 }
-/* fin de la loupe */
-/* ligne sous le header */
+
+/* Ligne de séparation sous le header */
 .ligne {
-    margin-top: 0px;
+    margin-top: 0px; /* Pas d'espace en haut */
 }
-/* fin de la ligne sous le header */

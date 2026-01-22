@@ -37,25 +37,29 @@
         </div>
         <div class="resultats">
             {{if .Query}}
-            <h2>Résultats pour : "{{.Query}}"</h2>
-            {{if .HasResults}}
-            <p>{{.Count}} jeu(x) trouvé(s)</p>
-            <section class="games-grid">
-                {{range .Results}}
-                <div class="game-card clickable" data-game='{{convertToJSON .}}'>
-                    <h3>{{index . "name"}}</h3>
-                    {{ $game := .}}
-                    {{with index $game "background_image"}}
-                    <img src="{{.}}" alt="{{index $game "name"}}" class="game-image">
-                    {{end}}
-                    <p>Sortie : {{formatDate (index . "released")}}</p>
-                    <p>Note: {{index . "rating"}}</p>
-                </div>
-                {{end}}
-            </section>
+                <h2>Résultats pour : "{{.Query}}"</h2>
+                {{if .HasResults}}
+                    <p>{{.Count}} jeu(x) trouvé(s)</p>
+                    <div class="games-grid">
+                        {{range .Results}}
+                        <div class="game-card clickable" data-game='{{convertToJSON .}}'>
+                            <img src="{{.background_image}}" alt="{{.name}}">
+                            <h3>{{.name}}</h3>
+                            <p>Note : {{.rating}}/5</p>
+                            <p>Date de sortie  {{.released}}</p>
+                        </div>
+                        {{end}}
+                    </div>
+                    <div id="gameModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div id="gameDetails">
+                            </div>
+                        </div>
+                    </div>
             {{else}}
-            <p>Aucun jeu trouvé pour cette recherche.</p>
-            {{end}}
+                    <p>Aucun jeu trouvé pour cette recherche.</p>
+                {{end}}
             {{end}}
         </div>
     </main>
