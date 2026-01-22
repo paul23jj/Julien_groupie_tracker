@@ -88,16 +88,18 @@
   background: #172027; /* Fond gris foncé */
   border-radius: 6px; /* Coins arrondis */
   overflow: hidden; /* Cache le débordement */
-  min-height: 160px; /* Hauteur minimale */
   display: flex; /* Disposition flexible */
   flex-direction: column; /* Empilement vertical */
+  width: 280px; /* Largeur fixe pour uniformité */
+  height: 380px; /* Hauteur fixe pour uniformité */
+  position: relative; /* Pour le bouton favori */
 }
 
 /* Images des jeux - taille et ajustement uniformes */
 .game-card img,
 .game-image {
   width: 100%; /* Largeur complète */
-  height: 120px; /* Hauteur fixe */
+  height: 180px; /* Hauteur fixe uniforme */
   object-fit: cover; /* Remplit l'espace sans déformer */
   display: block; /* Affichage en bloc */
 }
